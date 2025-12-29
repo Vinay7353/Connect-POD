@@ -1,0 +1,56 @@
+<ion-header hidden>
+</ion-header>
+
+<ion-content class="padding loginpage" [ngStyle]="loginStyle">
+
+  <!-- Error message -->
+  <ion-item color="danger" *ngIf="error">
+    <ion-icon name="alert-circle" slot="start"></ion-icon>
+    <ion-label>
+      <b>{{ error }}</b>
+    </ion-label>
+  </ion-item>
+
+  <!-- Password reset -->
+  <ion-item color="danger" *ngIf="passreset">
+    <ion-label>
+      <b>
+        Forgot your password?
+        <a (click)="onResetPassword()">Click here.</a>
+      </b>
+    </ion-label>
+  </ion-item>
+
+  <ion-card class="loginform">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <ion-item>
+        <ion-input
+          formControlName="email"
+          placeholder="Username">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="password"
+          formControlName="password"
+          placeholder="Password">
+        </ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="loginForm.invalid">
+        Log in
+      </ion-button>
+
+    </form>
+  </ion-card>
+
+  <div style="position: absolute; bottom: 10px; right: 10px; color: white;">
+    <small>v{{ version }}</small>
+  </div>
+
+</ion-content>
