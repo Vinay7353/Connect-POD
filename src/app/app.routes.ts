@@ -1,13 +1,18 @@
 import { Routes } from '@angular/router';
 import {HomeComponent} from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-  {path: 'home', loadComponent: () => import('./home/home.page').then((m) => m.HomePage),},
-  {path: '', component: LoginComponent},
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
+  // Redirect root to login
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  // Login route (used by authGuard redirect)
+  { path: 'login', component: LoginComponent },
+
+  // Home route (loaded component) - protected by authGuard
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+
+  // Fallback
+  { path: '**', redirectTo: 'login' },
 ];
